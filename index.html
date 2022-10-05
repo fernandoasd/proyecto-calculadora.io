@@ -88,7 +88,7 @@ var valor = 0;
 
 var resultado1_js;//variable auxiliar
 var resultado2_js; 
-var num;
+var num=0;
 var auxiliar, valor2_js;
 var operacion_js; //Determina el tipo de operación: operacion_js.value= 1 suma , 2 resta, 3 multiplicación, 4 división
 var display1_js = document.getElementById("display1"); 
@@ -113,41 +113,12 @@ var tecla_9_js = document.getElementById("tecla_9")
 var tecla_0_js = document.getElementById("tecla_0")
 
 
-  function teclado_calculadora() {
-  
-  tecla_calculadora = event.key;
-  
-  console.log("tecla= "+ tecla_calculadora);
-  if ( tecla_calculadora >= 0 ) {
-    display1_js.value +=  tecla_calculadora;
-   } else {
-    switch (tecla_calculadora){
-      case tecla_calculadora = "+":
-        display1_js.value +=  tecla_calculadora;
-        suma()
-      break;
-      case tecla_calculadora = "-":
-        resta()
-      break;
-      case tecla_calculadora = "*":
-      multiplicacion()
-      break;
-      case tecla_calculadora = "/":
-      division()
-      break;
-      case tecla_calculadora = "Enter":
-      operacion_1(operacion_js);
-      break;
-      case tecla_calculadora = "Escape":
-      borrar();
-      break
-    }
-   }
-  }
+ 
 
-  window.onkeydown = teclado_calculadora;
+
 
   //Función de operación - Determina el tipo de operación: x = 1 suma , 2 resta, 3 multiplicación, 4 división.
+
   function operacion(){ 
   valor2_js = display1_js.value;
   switch (operacion_js){
@@ -155,60 +126,28 @@ var tecla_0_js = document.getElementById("tecla_0")
     resultado_display_js.value = parseInt(valor1_js) + parseInt(valor2_js);
     display1_js.value =  resultado_display_js.value;
     display2_js.value += valor2_js + " = " + resultado_display_js.value
-    display1_js.value = "";
-    console.log("Valor1= "+ valor1_js + " Valor2= " + valor2_js + ". El resultado de la suma es: " + resultado_display_js.value)
+    console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la suma es: " + resultado_display_js.value)
     break;
     case operacion_js.value=2: //caso resta
     resultado_display_js.value = parseInt(valor1_js) - parseInt(valor2_js);
     display1_js.value =  resultado_display_js.value;
     display2_js.value += valor2_js + " = " + resultado_display_js.value
-    display1_js.value = "";
-    console.log("Valor1= "+ valor1_js + " Valor2= " + valor2_js + ". El resultado de la resta es: " + resultado_display_js.value)
+    display3_js.value = "-";
+    console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la resta es: " + resultado_display_js.value)
     break;
     case operacion_js.value=3: //caso multiplicacion
     resultado_display_js.value = parseInt(valor1_js) * parseInt(valor2_js);
     display1_js.value =  resultado_display_js.value;
     display2_js.value += valor2_js + " = " + resultado_display_js.value
-    display1_js.value = "";
-    valor1_js.value = resultado_display_js.value;
-    console.log("Valor1= "+ valor1_js + " Valor2= " + valor2_js + ". El resultado de la multiplicacion es: " + resultado_display_js.value)
+    display3_js.value = "*";
+    console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la multiplicacion es: " + resultado_display_js.value)
     break;
     case operacion_js.value=4: //caso división
     resultado_display_js.value = parseInt(valor1_js) / parseInt(valor2_js);
     display1_js.value =  resultado_display_js.value;
     display2_js.value += valor2_js + " = " + resultado_display_js.value
-    display1_js.value = "";
-    console.log("Valor1= "+ valor1_js + " Valor2= " + valor2_js + ". El resultado de la division es: " + resultado_display_js.value)
-    break;
-  }
-}
-
-  function operacion_1(){ 
-  valor2_js = display1_js.value;
-  switch (operacion_js){
-    case operacion_js.value=1: //caso suma
-    resultado_display_js.value = parseInt(valor1_js) + parseInt(valor2_js);
-    display1_js.value =  resultado_display_js.value;
-    display2_js.value += valor2_js + " = " + resultado_display_js.value
-    console.log("Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la suma es: " + resultado_display_js.value)
-    break;
-    case operacion_js.value=2: //caso resta
-    resultado_display_js.value = parseInt(valor1_js) - parseInt(valor2_js);
-    display1_js.value =  resultado_display_js.value;
-    display2_js.value += valor2_js + " = " + resultado_display_js.value
-    console.log("Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la resta es: " + resultado_display_js.value)
-    break;
-    case operacion_js.value=3: //caso multiplicacion
-    resultado_display_js.value = parseInt(valor1_js) * parseInt(valor2_js);
-    display1_js.value =  resultado_display_js.value;
-    display2_js.value += valor2_js + " = " + resultado_display_js.value
-    console.log("Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la multiplicacion es: " + resultado_display_js.value)
-    break;
-    case operacion_js.value=4: //caso división
-    resultado_display_js.value = parseInt(valor1_js) / parseInt(valor2_js);
-    display1_js.value =  resultado_display_js.value;
-    display2_js.value += valor2_js + " = " + resultado_display_js.value
-    console.log("Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la division es: " + resultado_display_js.value)
+    display3_js.value = "/";
+    console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la division es: " + resultado_display_js.value)
     break;
   }
 }
@@ -221,6 +160,7 @@ function suma() {
   operacion_js = 1;
   display1_js.value = "";
   display2_js.value = valor1_js + " + ";
+  display3_js.value = "+";
   console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " + ");
 }
 
@@ -229,7 +169,8 @@ function resta() {
   valor1_js = display1_js.value;
   operacion_js = 2;
   display1_js.value = "";
-  display2_js.value = valor1_js + " - "
+  display2_js.value = valor1_js + " - ";
+  display3_js.value = "-";
   console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " - ")
 }
 
@@ -239,6 +180,7 @@ function multiplicacion() {
   operacion_js = 3;
   display1_js.value = "";
   display2_js.value = valor1_js + " * "
+  display3_js.value = "*";
   console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " * ")
 }
 
@@ -248,6 +190,7 @@ function division() {
   operacion_js = 4;
   display1_js.value = "";
   display2_js.value = valor1_js + " / "
+  display3_js.value = "/";
   console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " / ")
 }
 
@@ -263,6 +206,40 @@ function borrar() {
 }
 
 // ----------------------------------FIN  Funciones aritmeticas----------------------------------
+
+// ----------------------------------START entrada de teclado----------------------------------
+function teclado_calculadora() {
+  
+  tecla_calculadora = event.key;
+  
+  console.log("tecla= "+ tecla_calculadora);
+  if ( tecla_calculadora >= 0 ) {
+    display1_js.value +=  tecla_calculadora;
+   } else {
+    switch (tecla_calculadora){
+      case tecla_calculadora = "+":
+      suma()
+      break;
+      case tecla_calculadora = "-":
+      resta()
+      break;
+      case tecla_calculadora = "*":
+      multiplicacion()
+      break;
+      case tecla_calculadora = "/":
+      division();
+      break;
+      case tecla_calculadora = "Escape":
+      borrar();
+      break
+      case tecla_calculadora = "Enter":
+      break
+    }
+   }
+  }
+  window.onkeydown = teclado_calculadora;
+
+// ----------------------------------Fin entrada de teclado----------------------------------
 
 //función botton_num que escribe el botón numero seleccionado:
 function button_num(x){
