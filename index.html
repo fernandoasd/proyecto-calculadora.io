@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <!--Link css-->
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <!--link js-->
+  <script src="./js/javascript.js"></script>
+  <title>Calculadora</title>
+</head>
+
+<body>
+  <h1 class="text-center m-3">Calculadora</h1>
+
+  <!-- HTML Calculadora-->
+</div>
+<div class="container-sm w-50 bg-secondary text-white p-3  border rounded-2 "> 
+  <p class="text-center"><strong> Ejemplo de script calculadora (Branch: calculadora_v2_input v 2.0.2): </strong></p>
+<div class="row bg-white border border-white m-0 p-0">
+  <div class="col-5 m-0 p-0">
+    <input class="w-100 border border-white text-center bg-white tex-back" type="text" name="display"  placeholder="Ingrese número" id="display1" disabled>
+  </div>
+  <div class="col-2 m-0 p-0">
+    <input class="w-100 border border-white text-center" type="text" name="display"  placeholder="Cuentas" id="display2">
+  </div>
+  <div class="col-5 m-0 p-0">
+    <input class="w-100 border border-white text-center" type="text" name="display"  placeholder="Notas" id="display3">
+  </div>
+  <div class="col-12 m-0 p-0">
+    <input class="border border border-white w-100 rounded-2 text-center" rows="5" type="text" name="resultado" id="display_resultado" placeholder="Resultado">
+  </div>
+</div>
+    
+    
+<div class="row">
+  <div class="col-6">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="+" id="sumar">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="-" id="restar">
+  </div>
+  <div class="col-6">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="*" id="multiplicar">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="/" id="dividir">
+</div>
+<div class="row">
+  <div class="col-4">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="7" id="tecla_7">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="4" id="tecla_4">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="1" id="tecla_1">
+  </div>
+  <div class="col-4">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="8" id="tecla_8">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="5" id="tecla_5">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="2" id="tecla_2">
+  </div>
+  <div class="col-4">
+    <input class="btn  w-100 m-1 btn-primary" type="button"  value="9" id="tecla_9">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="6" id="tecla_6">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="3" id="tecla_3">
+  </div>
+  <div class="col-4">
+    <input class="btn w-100 m-1 btn-primary" type="button"  value="0" id="tecla_0">
+  </div>
+  
+</div>
+
+<div class="col-12 d-flex justify-content-start"></div>
+    <input class="btn w-50 m-1 btn-warning" type="button"  value="=" id="enter_btn">
+    <input class="btn w-25 justify-content-end m-1 btn-danger" type="button"  value="Borrar" id="borrar">
+</div>
+<div class="row p-1">
+    
+  </div>
+</div>
+
+
+
+
+<!-- JS Calculadora-->
+<script>
+var valor = 0;
+
+
+var resultado1_js;//variable auxiliar
+var resultado2_js; 
+var num;
+var auxiliar, valor2_js;
+var operacion_js; //Determina el tipo de operación: operacion_js.value= 1 suma , 2 resta, 3 multiplicación, 4 división
+var display1_js = document.getElementById("display1"); 
+var display2_js = document.getElementById("display2");
+var display3_js = document.getElementById("display3");
+var resultado_display_js = document.getElementById("display_resultado");
+var sumar_js = document.getElementById("sumar");
+var restar_js = document.getElementById("restar");
+var multiplicar_js = document.getElementById("multiplicar");
+var dividir_js = document.getElementById("dividir");
+var enter_js = document.getElementById("enter_btn");
+var borrar_js = document.getElementById("borrar")
+var tecla_1_js = document.getElementById("tecla_1")
+var tecla_2_js = document.getElementById("tecla_2")
+var tecla_3_js = document.getElementById("tecla_3")
+var tecla_4_js = document.getElementById("tecla_4")
+var tecla_5_js = document.getElementById("tecla_5")
+var tecla_6_js = document.getElementById("tecla_6")
+var tecla_7_js = document.getElementById("tecla_7")
+var tecla_8_js = document.getElementById("tecla_8")
+var tecla_9_js = document.getElementById("tecla_9")
+var tecla_0_js = document.getElementById("tecla_0")
+
+
+  function teclado_calculadora() {
+  
+  tecla_calculadora = event.key;
+  
+  console.log("tecla= "+ tecla_calculadora);
+  if ( tecla_calculadora >= 0 ) {
+    display1_js.value +=  tecla_calculadora;
+   } else {
+    switch (tecla_calculadora){
+      case tecla_calculadora = "+":
+        display1_js.value +=  tecla_calculadora;
+        suma()
+      break;
+      case tecla_calculadora = "-":
+        resta()
+      break;
+      case tecla_calculadora = "*":
+      multiplicacion()
+      break;
+      case tecla_calculadora = "/":
+      division()
+      break;
+      case tecla_calculadora = "Enter":
+      operacion_1(operacion_js);
+      break;
+      case tecla_calculadora = "Escape":
+      borrar();
+      break
+    }
+   }
+  }
+
+  window.onkeydown = teclado_calculadora;
+
+  //Función de operación - Determina el tipo de operación: x = 1 suma , 2 resta, 3 multiplicación, 4 división.
+  function operacion(){ 
+  valor2_js = display1_js.value;
+  switch (operacion_js){
+    case operacion_js.value=1: //caso suma
+    resultado_display_js.value = parseInt(valor1_js) + parseInt(valor2_js);
+    display1_js.value =  resultado_display_js.value;
+    display2_js.value += valor2_js + " = " + resultado_display_js.value
+    display1_js.value = "";
+    console.log("Valor1= "+ valor1_js + " Valor2= " + valor2_js + ". El resultado de la suma es: " + resultado_display_js.value)
+    break;
+    case operacion_js.value=2: //caso resta
+    resultado_display_js.value = parseInt(valor1_js) - parseInt(valor2_js);
+    display1_js.value =  resultado_display_js.value;
+    display2_js.value += valor2_js + " = " + resultado_display_js.value
+    display1_js.value = "";
+    console.log("Valor1= "+ valor1_js + " Valor2= " + valor2_js + ". El resultado de la resta es: " + resultado_display_js.value)
+    break;
+    case operacion_js.value=3: //caso multiplicacion
+    resultado_display_js.value = parseInt(valor1_js) * parseInt(valor2_js);
+    display1_js.value =  resultado_display_js.value;
+    display2_js.value += valor2_js + " = " + resultado_display_js.value
+    display1_js.value = "";
+    valor1_js.value = resultado_display_js.value;
+    console.log("Valor1= "+ valor1_js + " Valor2= " + valor2_js + ". El resultado de la multiplicacion es: " + resultado_display_js.value)
+    break;
+    case operacion_js.value=4: //caso división
+    resultado_display_js.value = parseInt(valor1_js) / parseInt(valor2_js);
+    display1_js.value =  resultado_display_js.value;
+    display2_js.value += valor2_js + " = " + resultado_display_js.value
+    display1_js.value = "";
+    console.log("Valor1= "+ valor1_js + " Valor2= " + valor2_js + ". El resultado de la division es: " + resultado_display_js.value)
+    break;
+  }
+}
+
+  function operacion_1(){ 
+  valor2_js = display1_js.value;
+  switch (operacion_js){
+    case operacion_js.value=1: //caso suma
+    resultado_display_js.value = parseInt(valor1_js) + parseInt(valor2_js);
+    display1_js.value =  resultado_display_js.value;
+    display2_js.value += valor2_js + " = " + resultado_display_js.value
+    console.log("Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la suma es: " + resultado_display_js.value)
+    break;
+    case operacion_js.value=2: //caso resta
+    resultado_display_js.value = parseInt(valor1_js) - parseInt(valor2_js);
+    display1_js.value =  resultado_display_js.value;
+    display2_js.value += valor2_js + " = " + resultado_display_js.value
+    console.log("Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la resta es: " + resultado_display_js.value)
+    break;
+    case operacion_js.value=3: //caso multiplicacion
+    resultado_display_js.value = parseInt(valor1_js) * parseInt(valor2_js);
+    display1_js.value =  resultado_display_js.value;
+    display2_js.value += valor2_js + " = " + resultado_display_js.value
+    console.log("Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la multiplicacion es: " + resultado_display_js.value)
+    break;
+    case operacion_js.value=4: //caso división
+    resultado_display_js.value = parseInt(valor1_js) / parseInt(valor2_js);
+    display1_js.value =  resultado_display_js.value;
+    display2_js.value += valor2_js + " = " + resultado_display_js.value
+    console.log("Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la division es: " + resultado_display_js.value)
+    break;
+  }
+}
+// fin funcion operación
+
+// ---------------------------------- Funciones aritmeticas----------------------------------
+//función SUMA
+function suma() {
+  valor1_js = display1_js.value; 
+  operacion_js = 1;
+  display1_js.value = "";
+  display2_js.value = valor1_js + " + ";
+  console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " + ");
+}
+
+//función RESTA
+function resta() {
+  valor1_js = display1_js.value;
+  operacion_js = 2;
+  display1_js.value = "";
+  display2_js.value = valor1_js + " - "
+  console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " - ")
+}
+
+//función MULTIPLICACION
+function multiplicacion() {
+  valor1_js = display1_js.value;
+  operacion_js = 3;
+  display1_js.value = "";
+  display2_js.value = valor1_js + " * "
+  console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " * ")
+}
+
+//función DIVISION
+function division() {
+  valor1_js = display1_js.value;
+  operacion_js = 4;
+  display1_js.value = "";
+  display2_js.value = valor1_js + " / "
+  console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " / ")
+}
+
+//función BORRAR DISPLAYS
+function borrar() {
+  display1_js.value = 0;
+  display2_js.value = 0;
+  display3_js.value = 0;
+  resultado_display_js.value= 0;
+  valor1_js = 0;
+  valor2_js = 0;
+  operacion_js = 0;
+}
+
+// ----------------------------------FIN  Funciones aritmeticas----------------------------------
+
+//función botton_num que escribe el botón numero seleccionado:
+function button_num(x){
+  
+  switch(x){
+    case x = 1:
+      display1_js.value += 1;
+      console.log("x= " + x)
+      break;
+    case x = 2:
+      display1_js.value += 2;
+      console.log("x= " + x)
+      break;
+    case x = 3:
+      display1_js.value += 3;
+      console.log("x= " + x)
+      break;
+    case x = 4:
+      display1_js.value += 4;
+      console.log("x= " + x)
+      break;
+    case x = 5:
+      display1_js.value += 5;
+      console.log("x= " + x)
+      break;
+    case x = 6:
+      display1_js.value += 6;
+      console.log("x= " + x)
+      break;
+    case x = 7:
+      display1_js.value += 7;
+      console.log("x= " + x)
+      break;
+    case x = 8:
+      display1_js.value += 8;
+      console.log("x= " + x)
+      break;
+    case x = 9:
+      display1_js.value += 9;
+      console.log("x= " + x)
+      break;
+    case x = 0:
+      display1_js.value += 0;
+      console.log("x= " + x)
+      break;
+  }
+}
+// fin funcion botton_num
+
+/*----------------------Click botones NÚMEROS----------------------*/
+
+//uno
+tecla_1_js.addEventListener("click", function(){
+  button_num(1)
+})
+//dos
+tecla_2_js.addEventListener("click", function(){
+  button_num(2)
+})
+//tres
+tecla_3_js.addEventListener("click", function(){
+  button_num(3)
+})
+//4
+tecla_4_js.addEventListener("click", function(){
+  button_num(4)
+})
+//5
+tecla_5_js.addEventListener("click", function(){
+  button_num(5)
+})
+//6
+tecla_6_js.addEventListener("click", function(){
+  button_num(6)
+})
+//7
+tecla_7_js.addEventListener("click", function(){
+  button_num(7)
+})
+//8
+tecla_8_js.addEventListener("click", function(){
+  button_num(8)
+})
+//9
+tecla_9_js.addEventListener("click", function(){
+  button_num(9)
+})
+//0
+tecla_0_js.addEventListener("click", function(){
+  button_num(0)
+})
+
+
+
+// capturador de teclado
+
+
+
+/* operacion_js.value= 1 suma , 2 resta, 3 multiplicación, 4 división. */
+
+/*----------------------Click botones de operaciones----------------------*/
+
+/*Click boton +*/
+sumar_js.addEventListener("click", function(){ 
+  suma()
+})
+
+  /*Operaciión Resta*/
+restar_js.addEventListener("click", function(){
+  resta() 
+})
+
+  /*Operaciión Multiplicación*/
+  multiplicar_js.addEventListener("click", function(){ 
+  multiplicacion()
+})
+
+ /*Operaciión División*/
+ dividir_js.addEventListener("click", function(){ 
+  division()
+})
+
+ /* Borrar */
+ borrar_js.addEventListener("click", function(){
+  borrar()
+})
+
+/* = */
+enter_js.addEventListener("click", function(){
+ operacion(operacion_js)
+})
+
+
+
+</script>
+
+
+  <!-- JavaScript Bundle with Popper Bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
