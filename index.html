@@ -21,7 +21,7 @@
   <!-- HTML Calculadora-->
 </div>
 <div class="container-sm w-50 bg-secondary text-white p-3  border rounded-2 "> 
-  <p class="text-center"><strong> Ejemplo de script calculadora (Branch: calculadora_v2_input v 2.0.2): </strong></p>
+  <p class="text-center"><strong> Ejemplo de script calculadora (Branch: calculadora_v2_input v 2.0.3): </strong></p>
 <div class="row bg-white border border-white m-0 p-0">
   <div class="col-5 m-0 p-0">
     <input class="w-100 border border-white text-center bg-white tex-back" type="text" name="display"  placeholder="Ingrese número" id="display1" disabled>
@@ -78,18 +78,15 @@
   </div>
 </div>
 
-
-
-
 <!-- JS Calculadora-->
 <script>
+//Declaración de variables globales al Script
 var valor = 0;
-
-
-var resultado1_js;//variable auxiliar
+var tecla_calculadora;
+var resultado1_js;
 var resultado2_js; 
 var num=0;
-var auxiliar, valor2_js;
+var parse_tecla, valor2_js, auxiliar;
 var operacion_js; //Determina el tipo de operación: operacion_js.value= 1 suma , 2 resta, 3 multiplicación, 4 división
 var display1_js = document.getElementById("display1"); 
 var display2_js = document.getElementById("display2");
@@ -113,60 +110,78 @@ var tecla_9_js = document.getElementById("tecla_9")
 var tecla_0_js = document.getElementById("tecla_0")
 
 
- 
+// ----------------------------------START entrada de teclado----------------------------------
+// capturador de teclado
+window.onkeydown = teclado_calculadora;  // Esta linea hace que cada vez que se presione una tecla (cualquiera) llame a la función "teclado_calculadora"
+function teclado_calculadora() { //función que realiza acciones dependiendo de la tecla presionada
+  /* Keyboard -> tecla_calculadora : el nombre de la tecla presionada por teclado se guarda ( y se sobreescribe) en esta variable 
+  llamada "tecla_calculadora". Ej si se presiona intro-> tecla_calculadora=Enter, si se presiona la tecla Esc-> tecla_calculadora=Escape, etc.*/
+  tecla_calculadora = event.key; 
 
+  /*Se parsea la entrada de teclado, parse_tecla siempre es de tipo numérico. 
+  Obs: Si la entrada de teclado es no numérica(ejemplo Enter, + , m, etc), parse_tecla, al estar parseado  toma el valor "NaN" (not a number)*/
+  parse_tecla = parseFloat(tecla_calculadora); // parse_tecla= parseo de la tecla ingresada (tecla_calculadora)
+  console.log("tecla= "+ tecla_calculadora);
+  console.log("type tecla_calculadora " + typeof tecla_calculadora)
+  console.log("parseFloat tecla_calculadora: " + parseFloat(tecla_calculadora))
+  parse_tecla = parseInt(tecla_calculadora)
+  console.log("parse_tecla : " + parse_tecla)
+  console.log("type parse_tecla " + typeof parse_tecla)
 
-
-  //Función de operación - Determina el tipo de operación: x = 1 suma , 2 resta, 3 multiplicación, 4 división.
-
-  function operacion(){ 
-  valor2_js = display1_js.value;
-  switch (operacion_js){
-    case operacion_js.value=1: //caso suma
-    resultado_display_js.value = parseInt(valor1_js) + parseInt(valor2_js);
-    display1_js.value =  resultado_display_js.value;
-    display2_js.value += valor2_js + " = " + resultado_display_js.value
-    console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la suma es: " + resultado_display_js.value)
-    break;
-    case operacion_js.value=2: //caso resta
-    resultado_display_js.value = parseInt(valor1_js) - parseInt(valor2_js);
-    display1_js.value =  resultado_display_js.value;
-    display2_js.value += valor2_js + " = " + resultado_display_js.value
-    display3_js.value = "-";
-    console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la resta es: " + resultado_display_js.value)
-    break;
-    case operacion_js.value=3: //caso multiplicacion
-    resultado_display_js.value = parseInt(valor1_js) * parseInt(valor2_js);
-    display1_js.value =  resultado_display_js.value;
-    display2_js.value += valor2_js + " = " + resultado_display_js.value
-    display3_js.value = "*";
-    console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la multiplicacion es: " + resultado_display_js.value)
-    break;
-    case operacion_js.value=4: //caso división
-    resultado_display_js.value = parseInt(valor1_js) / parseInt(valor2_js);
-    display1_js.value =  resultado_display_js.value;
-    display2_js.value += valor2_js + " = " + resultado_display_js.value
-    display3_js.value = "/";
-    console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la division es: " + resultado_display_js.value)
-    break;
+  if ( parse_tecla >= 0 ) { //"parse_tecla >= 0" para que en el display1 solo entren números y no aparezca un "NaN" cuando se presione una tecla no numérica.
+    display1_js.value +=  parse_tecla;
+   } else {
+    switch (tecla_calculadora){ //llamado de funciones según tecla presionada
+      case tecla_calculadora = "+": //si la tecla presionada es "+" llama  a la función suma()
+      suma()
+      break;
+      case tecla_calculadora = "-": //si la tecla presionada es "-" llama  a la función resta(), etc
+      resta()
+      break;
+      case tecla_calculadora = "*":
+      multiplicacion()
+      break;
+      case tecla_calculadora = "/":
+      division();
+      break;
+      case tecla_calculadora = "Escape": //Si se presiona la tecla Esc llama a la función borrar(). 
+      borrar();
+      break
+      case tecla_calculadora = "Enter": //presionar Enter o Intro es igual a presionar el botón de "="
+      operacion(num);
+      num =0;
+      break
+    }
+   }
   }
-}
-// fin funcion operación
+  
+// ----------------------------------Fin entrada de teclado----------------------------------
 
-// ---------------------------------- Funciones aritmeticas----------------------------------
+// ---------------------------------- Inicio Funciones aritmeticas----------------------------------
 //función SUMA
 function suma() {
-  valor1_js = display1_js.value; 
+  
+  valor1_js = parseFloat(display1_js.value); 
+  if (valor1_js >= 0){
   operacion_js = 1;
   display1_js.value = "";
   display2_js.value = valor1_js + " + ";
   display3_js.value = "+";
   console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " + ");
+  } else {
+  operacion_js = 1;
+  valor1_js = 0;
+  display1_js.value = "";
+  display2_js.value = " 0 +  ";
+  display3_js.value = "+";
+  console.log("operacion_js.value= " + operacion_js + " Valor= " + valor1_js + " + ");
+  }
+
 }
 
 //función RESTA
 function resta() {
-  valor1_js = display1_js.value;
+  valor1_js = parseFloat(display1_js.value);
   operacion_js = 2;
   display1_js.value = "";
   display2_js.value = valor1_js + " - ";
@@ -176,7 +191,7 @@ function resta() {
 
 //función MULTIPLICACION
 function multiplicacion() {
-  valor1_js = display1_js.value;
+  valor1_js = parseFloat(display1_js.value)
   operacion_js = 3;
   display1_js.value = "";
   display2_js.value = valor1_js + " * "
@@ -186,7 +201,7 @@ function multiplicacion() {
 
 //función DIVISION
 function division() {
-  valor1_js = display1_js.value;
+  valor1_js = parseFloat(display1_js.value);
   operacion_js = 4;
   display1_js.value = "";
   display2_js.value = valor1_js + " / "
@@ -203,179 +218,183 @@ function borrar() {
   valor1_js = 0;
   valor2_js = 0;
   operacion_js = 0;
+  num = 1;
 }
 
 // ----------------------------------FIN  Funciones aritmeticas----------------------------------
 
-// ----------------------------------START entrada de teclado----------------------------------
-function teclado_calculadora() {
-  
-  tecla_calculadora = event.key;
-  
-  console.log("tecla= "+ tecla_calculadora);
-  if ( tecla_calculadora >= 0 ) {
-    display1_js.value +=  tecla_calculadora;
-   } else {
-    switch (tecla_calculadora){
-      case tecla_calculadora = "+":
-      suma()
+// ----------------------------------Inicio Función de operacións----------------------------------
+//Determina el tipo de operación: x = 1 suma , 2 resta, 3 multiplicación, 4 división.
+  function operacion(num){ 
+  if (num = 1){
+    valor2_js = display1_js.value;
+    switch (operacion_js){
+      case operacion_js.value=1: //caso suma
+      resultado_display_js.value = parseInt(valor1_js) + parseInt(valor2_js);
+      display1_js.value =  resultado_display_js.value;
+      display2_js.value += valor2_js + " = " + resultado_display_js.value
+      console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la suma es: " + resultado_display_js.value)
       break;
-      case tecla_calculadora = "-":
-      resta()
+      case operacion_js.value=2: //caso resta
+      resultado_display_js.value = parseInt(valor1_js) - parseInt(valor2_js);
+      display1_js.value =  resultado_display_js.value;
+      display2_js.value += valor2_js + " = " + resultado_display_js.value
+      display3_js.value = "-";
+      console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la resta es: " + resultado_display_js.value)
       break;
-      case tecla_calculadora = "*":
-      multiplicacion()
+      case operacion_js.value=3: //caso multiplicacion
+      resultado_display_js.value = parseInt(valor1_js) * parseInt(valor2_js);
+      display1_js.value =  resultado_display_js.value;
+      display2_js.value += valor2_js + " = " + resultado_display_js.value
+      display3_js.value = "*";
+      console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la multiplicacion es: " + resultado_display_js.value)
       break;
-      case tecla_calculadora = "/":
-      division();
+      case operacion_js.value=4: //caso división
+      resultado_display_js.value = parseInt(valor1_js) / parseInt(valor2_js);
+      display1_js.value =  resultado_display_js.value;
+      display2_js.value += valor2_js + " = " + resultado_display_js.value
+      display3_js.value = "/";
+      console.log("Operación 2 Valor 1= "+ valor1_js + " Valor 2= " + valor2_js + ". El resultado de la division es: " + resultado_display_js.value)
       break;
-      case tecla_calculadora = "Escape":
-      borrar();
-      break
-      case tecla_calculadora = "Enter":
-      break
     }
-   }
   }
-  window.onkeydown = teclado_calculadora;
+}
+// ----------------------------------FIN  funcion operación----------------------------------
 
-// ----------------------------------Fin entrada de teclado----------------------------------
-
-//función botton_num que escribe el botón numero seleccionado:
+// ----------------------------------Inicio función botton_num que escribe el botón numero seleccionado:----------------------------------
 function button_num(x){
-  
   switch(x){
     case x = 1:
-      display1_js.value += 1;
+      auxiliar = 1;
+      display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 2:
-      display1_js.value += 2;
+    auxiliar = 2;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 3:
-      display1_js.value += 3;
+    auxiliar = 3;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 4:
-      display1_js.value += 4;
+    auxiliar = 4;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 5:
-      display1_js.value += 5;
+    auxiliar = 5;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 6:
-      display1_js.value += 6;
+    auxiliar = 6;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 7:
-      display1_js.value += 7;
+    auxiliar = 7;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 8:
-      display1_js.value += 8;
+    auxiliar = 8;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 9:
-      display1_js.value += 9;
+    auxiliar = 9;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
     case x = 0:
-      display1_js.value += 0;
+    display1_js.value += parseFloat(auxiliar);
       console.log("x= " + x)
       break;
   }
 }
-// fin funcion botton_num
+// ----------------------------------FIN  funcion botton_num----------------------------------
 
-/*----------------------Click botones NÚMEROS----------------------*/
+/*----------------------Inicio EventListener ----> Click's Botones Números----------------------*/
 
-//uno
+//botón 1
 tecla_1_js.addEventListener("click", function(){
   button_num(1)
 })
-//dos
+//botón 2
 tecla_2_js.addEventListener("click", function(){
   button_num(2)
 })
-//tres
+//botón 2
 tecla_3_js.addEventListener("click", function(){
   button_num(3)
 })
-//4
+//botón 4
 tecla_4_js.addEventListener("click", function(){
   button_num(4)
 })
-//5
+//botón 5
 tecla_5_js.addEventListener("click", function(){
   button_num(5)
 })
-//6
+//botón 6
 tecla_6_js.addEventListener("click", function(){
   button_num(6)
 })
-//7
+//botón 7
 tecla_7_js.addEventListener("click", function(){
   button_num(7)
 })
-//8
+//botón 8
 tecla_8_js.addEventListener("click", function(){
   button_num(8)
 })
-//9
+//botón 9
 tecla_9_js.addEventListener("click", function(){
   button_num(9)
 })
-//0
+//botón 0
 tecla_0_js.addEventListener("click", function(){
   button_num(0)
 })
+/*----------------------FIN EventListener ----> Click's Botones Números----------------------*/
 
-
-
-// capturador de teclado
-
-
-
-/* operacion_js.value= 1 suma , 2 resta, 3 multiplicación, 4 división. */
-
-/*----------------------Click botones de operaciones----------------------*/
-
-/*Click boton +*/
+/*----------------------inicio Click botones de operaciones----------------------*/
+/* Click botón "+"" */
 sumar_js.addEventListener("click", function(){ 
   suma()
 })
 
-  /*Operaciión Resta*/
+/* Click botón "-"" */
 restar_js.addEventListener("click", function(){
   resta() 
 })
 
-  /*Operaciión Multiplicación*/
+/* Click botón "*"" */
   multiplicar_js.addEventListener("click", function(){ 
   multiplicacion()
 })
 
- /*Operaciión División*/
+/* Click botón "/" */
  dividir_js.addEventListener("click", function(){ 
   division()
 })
 
- /* Borrar */
+ /* Click botón "Borrar" */
  borrar_js.addEventListener("click", function(){
   borrar()
 })
 
-/* = */
+/* Click botón "=" */
 enter_js.addEventListener("click", function(){
- operacion(operacion_js)
+/* */
+ operacion(1) //la función siempre tiene el parámetro=1 para que se ejecute siempre que se haga click en el botón "="
 })
-
-
+/*----------------------FIN Click botones de operaciones----------------------*/
 
 </script>
-
 
   <!-- JavaScript Bundle with Popper Bootstrap-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
